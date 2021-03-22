@@ -920,7 +920,7 @@ function DataGrid<R, SR>({
         '--header-row-height': `${headerRowHeight}px`,
         '--filter-row-height': `${headerFiltersHeight}px`,
         '--row-width': `${totalColumnWidth}px`,
-        '--row-height': `${rowHeight}px`,
+        '--row-height': 'auto',
         '--summary-row-height': `${summaryRowHeight}px`,
         ...layoutCssVars
       } as unknown as React.CSSProperties}
@@ -954,7 +954,7 @@ function DataGrid<R, SR>({
             onKeyDown={handleKeyDown}
             onFocus={onGridFocus}
           />
-          <div style={{ height: Math.max(rows.length * rowHeight, clientHeight) }} />
+          {/* <div style={{ height: Math.max(rows.length * rowHeight, clientHeight) }} /> */}
           {getViewportRows()}
           {summaryRows?.map((row, rowIdx) => (
             <SummaryRow<R, SR>

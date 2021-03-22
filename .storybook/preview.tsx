@@ -17,7 +17,6 @@ css`
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    height: 100vh;
     padding: 8px;
   }
 

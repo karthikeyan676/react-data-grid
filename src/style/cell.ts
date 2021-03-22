@@ -1,15 +1,13 @@
 import { css } from '@linaria/core';
 
 export const cell = css`
-  contain: strict;
-  contain: size layout style paint;
-  padding: 0 8px;
+
+  padding: 8px 8px;
   border-right: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
   background-color: inherit;
 
-  white-space: nowrap;
-  overflow: hidden;
+  white-space: pre-wrap;
   overflow: clip;
   text-overflow: ellipsis;
 `;
@@ -18,7 +16,6 @@ export const cellClassname = `rdg-cell ${cell}`;
 
 const cellFrozen = css`
   position: sticky;
-  // Should have a higher value than 0 to show up above unfrozen cells
   z-index: 1;
 `;
 

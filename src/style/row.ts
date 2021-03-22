@@ -2,17 +2,18 @@ import { css } from '@linaria/core';
 import { cell } from './cell';
 
 export const row = css`
-  contain: strict;
-  contain: size layout style paint;
+  /* contain: strict;
+  contain: size layout style paint; */
   display: grid;
   grid-template-rows: var(--row-height);
   grid-template-columns: var(--template-columns);
-  position: absolute;
-  left: 0;
+
   width: var(--row-width);
-  height: var(--row-height); // needed on Firefox
+  height: var(--row-height);
   line-height: var(--row-height);
   background-color: var(--background-color);
+  word-wrap: break-word;
+  word-break: break-word;
 
   &:hover {
     background-color: var(--row-hover-background-color);
@@ -35,7 +36,7 @@ const summaryRow = css`
   position: sticky;
   z-index: 3;
   grid-template-rows: var(--summary-row-height);
-  height: var(--summary-row-height); // needed on Firefox
+  height: var(--summary-row-height);
   line-height: var(--summary-row-height);
 
   > .${cell} {

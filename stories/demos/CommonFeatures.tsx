@@ -1,6 +1,10 @@
 import { useState, useCallback, useMemo } from 'react';
 import faker from 'faker';
-import DataGrid, { SelectColumn, TextEditor, SelectCellFormatter } from '../../src';
+import DataGrid, {
+  SelectColumn,
+  TextEditor,
+  SelectCellFormatter
+} from '../../src';
 import type { Column, SortDirection } from '../../src';
 import { stopPropagation } from '../../src/utils';
 import { SelectEditor } from './components/Editors/SelectEditor';
@@ -24,7 +28,6 @@ interface SummaryRow {
   totalCount: number;
   yesCount: number;
 }
-
 interface Row {
   id: number;
   title: string;
@@ -82,11 +85,12 @@ function getColumns(countries: string[]): readonly Column<Row, SummaryRow>[] {
       key: 'country',
       name: 'Country',
       width: 180,
-      editor: p => (
+      editor: (p) => (
         <SelectEditor
           value={p.row.country}
-          onChange={value => p.onRowChange({ ...p.row, country: value }, true)}
-          options={countries.map(c => ({ value: c, label: c }))}
+          onChange={(value) =>
+            p.onRowChange({ ...p.row, country: value }, true)}
+          options={countries.map((c) => ({ value: c, label: c }))}
           rowHeight={p.rowHeight}
           menuPortalTarget={p.editorPortalTarget}
         />
@@ -112,7 +116,8 @@ function getColumns(countries: string[]): readonly Column<Row, SummaryRow>[] {
         const value = props.row.progress;
         return (
           <>
-            <progress max={100} value={value} style={{ width: 50 }} /> {Math.round(value)}%
+            <progress max={100} value={value} style={{ width: 50 }} />{' '}
+            {Math.round(value)}%
           </>
         );
       }
@@ -173,9 +178,7 @@ function getColumns(countries: string[]): readonly Column<Row, SummaryRow>[] {
         );
       },
       summaryFormatter({ row: { yesCount, totalCount } }) {
-        return (
-          <>{`${Math.floor(100 * yesCount / totalCount)}% ✔️`}</>
-        );
+        return <>{`${Math.floor((100 * yesCount) / totalCount)}% ✔️`}</>;
       }
     }
   ];
@@ -189,7 +192,7 @@ function createRows(): readonly Row[] {
   const now = Date.now();
   const rows: Row[] = [];
 
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < 10; i++) {
     rows.push({
       id: i,
       title: `Task #${i + 1}`,
@@ -214,18 +217,25 @@ function createRows(): readonly Row[] {
 
 export function CommonFeatures() {
   const [rows, setRows] = useState(createRows);
-  const [[sortColumn, sortDirection], setSort] = useState<[string, SortDirection]>(['id', 'NONE']);
+  const [[sortColumn, sortDirection], setSort] = useState<
+    [string, SortDirection]
+  >(['id', 'NONE']);
   const [selectedRows, setSelectedRows] = useState(() => new Set<React.Key>());
 
   const countries = useMemo(() => {
-    return [...new Set(rows.map(r => r.country))]
-      .sort(new Intl.Collator().compare);
+    return [...new Set(rows.map((r) => r.country))].sort(
+      new Intl.Collator().compare
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const columns = useMemo(() => getColumns(countries), [countries]);
 
   const summaryRows = useMemo(() => {
-    const summaryRow: SummaryRow = { id: 'total_0', totalCount: rows.length, yesCount: rows.filter(r => r.available).length };
+    const summaryRow: SummaryRow = {
+      id: 'total_0',
+      totalCount: rows.length,
+      yesCount: rows.filter((r) => r.available).length
+    };
     return [summaryRow];
   }, [rows]);
 
@@ -244,10 +254,14 @@ export function CommonFeatures() {
       case 'transaction':
       case 'account':
       case 'version':
-        sortedRows = sortedRows.sort((a, b) => a[sortColumn].localeCompare(b[sortColumn]));
+        sortedRows = sortedRows.sort((a, b) =>
+          a[sortColumn].localeCompare(b[sortColumn])
+        );
         break;
       case 'available':
-        sortedRows = sortedRows.sort((a, b) => a[sortColumn] === b[sortColumn] ? 0 : a[sortColumn] ? 1 : -1);
+        sortedRows = sortedRows.sort((a, b) =>
+          a[sortColumn] === b[sortColumn] ? 0 : a[sortColumn] ? 1 : -1
+        );
         break;
       case 'id':
       case 'progress':
@@ -262,9 +276,12 @@ export function CommonFeatures() {
     return sortDirection === 'DESC' ? sortedRows.reverse() : sortedRows;
   }, [rows, sortDirection, sortColumn]);
 
-  const handleSort = useCallback((columnKey: string, direction: SortDirection) => {
-    setSort([columnKey, direction]);
-  }, []);
+  const handleSort = useCallback(
+    (columnKey: string, direction: SortDirection) => {
+      setSort([columnKey, direction]);
+    },
+    []
+  );
 
   return (
     <DataGrid
