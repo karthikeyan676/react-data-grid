@@ -1,5 +1,5 @@
 {
-  "name": "react-data-table",
+  "name": "react-data-table-grid",
   "version": "0.0.2",
   "license": "MIT",
   "description": "Fork of react-data-grid to remove some features",
