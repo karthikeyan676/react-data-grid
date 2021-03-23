@@ -842,7 +842,7 @@ function DataGrid<R, SR>({
             key={row.id}
             id={row.id}
             groupKey={row.groupKey}
-            viewportColumns={viewportColumns}
+            viewportColumns={columns}
             childRows={row.childRows}
             rowIdx={rowIdx}
             top={top}
@@ -875,7 +875,7 @@ function DataGrid<R, SR>({
           key={key}
           rowIdx={rowIdx}
           row={row}
-          viewportColumns={viewportColumns}
+          viewportColumns={columns}
           isRowSelected={isRowSelected}
           onRowClick={onRowClick}
           rowClass={rowClass}
@@ -930,7 +930,7 @@ function DataGrid<R, SR>({
       <HeaderRow<R, SR>
         rowKeyGetter={rowKeyGetter}
         rows={rawRows}
-        columns={viewportColumns}
+        columns={columns}
         onColumnResize={handleColumnResize}
         allRowsSelected={selectedRows?.size === rawRows.length}
         onSelectedRowsChange={onSelectedRowsChange}
@@ -940,7 +940,7 @@ function DataGrid<R, SR>({
       />
       {enableFilterRow && (
         <FilterRow<R, SR>
-          columns={viewportColumns}
+          columns={columns}
           filters={filters}
           onFiltersChange={onFiltersChange}
         />
@@ -963,7 +963,7 @@ function DataGrid<R, SR>({
               rowIdx={rowIdx}
               row={row}
               bottom={summaryRowHeight * (summaryRows.length - 1 - rowIdx)}
-              viewportColumns={viewportColumns}
+              viewportColumns={columns}
             />
           ))}
         </>
