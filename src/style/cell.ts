@@ -10,6 +10,9 @@ export const cell = css`
   white-space: pre-wrap;
   overflow: clip;
   text-overflow: ellipsis;
+
+  min-height: 40px;
+  display: flex;
 `;
 
 export const cellClassname = `rdg-cell ${cell}`;
